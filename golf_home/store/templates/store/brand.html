@@ -1,0 +1,31 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+<nav>
+  <ul>
+    <li><a href="{% url 'store_home' %}">home</a></li>
+    <li>{{ brand }}</li>
+  </ul>
+</nav>
+
+<article class="products">
+  {% for el in brand_product %}
+    <section class="card">
+      <a href="{{ el.get_absolute_url }}"><img src="{{ el.photo.url }}" alt=""></a>
+      <!-- если ссылка связана с БД то пишем (get_absolute_url) иначе как обычно-->
+      <a href="{{ el.get_absolute_url }}" class="products-title">{{el.name}}</a>
+      <!-- <a href="{% url 'product' el.slug %}" class="product-title">{{el.name}}</a> -->
+      <div class="products-rating">
+        <span>Рейтинг: {{ el.rating }}</span>
+      </div>
+      <div class="products-price">
+        <span>Цена: {{ el.price }} $</span>
+      </div>
+    </section>
+  {% endfor %}
+</article>
+
+{% endblock %}

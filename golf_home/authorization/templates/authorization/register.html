@@ -1,0 +1,22 @@
+{% extends 'store/base.html' %}
+{% block title %} Регистрация {% endblock %}
+
+{% block content %}
+
+<!-- <div class="content"> -->
+	<form action="" method="post" class="form-register">
+		{% csrf_token %}
+		<div class="form-error">{{ form.non_field_errors }}</div>
+		<!-- ошибки при выбрасывании исключения -->
+
+		{% for el in form %}
+		<p>
+			<label class="form-label" for="{{ el.id_for_label }}">{{ el.label }} <br></label>{{ el }}</p>
+		<div class="form-error">{{ el.errors }}</div>
+		{% endfor %}
+
+		<button type="submit">Регистрация</button>
+		<p>Есть аккаунт?<a href="{% url 'login' %}">Войти</a></p>
+	</form>
+<!-- </div> -->
+{% endblock %}

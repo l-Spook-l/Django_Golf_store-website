@@ -1,0 +1,28 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Главная{% endblock %} 
+
+{% block content %}
+<section class="types-product-list">
+  <ul>
+    {% for el in types_products %}
+    <a href="{{ el.get_absolute_url }}"><li>{{ el }}</li></a>
+    {% endfor %}
+  </ul>
+</section>
+<article class="brands-product-list">
+  {% for el in brands_products %}
+  <section class="brand">
+    <a href="{{ el.get_absolute_url }}">
+      <div class="brands-description">
+        <h1>{{ el.name }}</h1>
+        <p>
+          {{ el.description|linebreaks|truncatewords:70 }}
+        </p>
+      </div>
+      <img src="{{ el.photo.url }}" alt="" />
+    </a>
+  </section>
+  {% endfor %}
+</article>
+{% endblock %}

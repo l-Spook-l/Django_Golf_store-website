@@ -1,0 +1,31 @@
+{% extends 'store/base.html' %} 
+
+{% block title %}
+Авторизация
+{% endblock %}
+{% block content %}
+  
+<!-- <p>
+  {{ user }}
+</p>
+<hr> -->
+<p>
+  {{ user.id }}
+</p>
+<p>
+  {{ user.email }}
+</p>
+<p>
+  {{ user.username }}
+</p>
+<p>
+  {{ user.first_name }}
+</p>
+<p>
+  {{ user.last_name }}
+</p>
+
+  <a href="{% url 'logout'%}">выйти из профиля</a>
+  <a href="{% url 'add_product' %}">Добавить товар</a>
+
+{% endblock %}

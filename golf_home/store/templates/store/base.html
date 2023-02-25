@@ -1,0 +1,130 @@
+{% load static %}
+<!-- подключаем папку static -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Подключение - css -->
+    <link
+      rel="stylesheet"
+      href="{% static 'store/css/style.css' %}"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <a href="{% url 'store_home' %}" class="logo">Golf Home</a>
+        <nav>
+          <ul>
+            <!-- <a href="#"><li>Блог</li></a> -->
+          </ul>
+        </nav>
+
+        {% if not user.is_authenticated %}
+        <a class="user-enter-profile" href="{% url 'login' %}">Sing in</a>
+        {% else %}
+        <a class="user-enter-profile" href="{% url 'profile' %}">Профиль</a>
+        <!-- <a class="user-enter-profile" href="{% url 'logout' %}">Выйти</a> -->
+        {% endif %}
+      </header>
+      <main>
+        {% block content %} {% endblock %}
+
+        <!-- =============== ПАГИНАЦИЯ  (18 урок) ============ -->
+        {% if page_obj.has_other_pages %}
+        <!-- если только одна страница, мы не выводим ее номер -->
+        <nav class="list-pages">
+          <ul>
+            <!-- стрелка влево на прошлую стр. -->
+            {% if page_obj.has_previous %}
+            <li>
+              <a class="page-num" href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+            </li>
+            {% endif %}
+
+            <!-- номера страниц -->
+            {% for p in paginator.page_range %} {% if page_obj.number == p %}
+            <li class="page-num page-num-selected">{{ p }}</li>
+
+            <!-- если много стр. чтобы отображались только 3 напр.( 4 5 6   )  -->
+            {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
+            <li>
+              <a class="page-num" href="?page={{ p }}">{{ p }}</a>
+            </li>
+            {% endif %} {% endfor %}
+
+            <!-- стрелка вправо на след стр. -->
+            {% if page_obj.has_next %}
+            <li>
+              <a class="page-num" href="?page={{ page_obj.next_page_number }}">&gt;</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      </main>
+      <footer>
+        <nav>
+          <ul class="footer-container">
+            <li class="footer-about-us">
+              <h3>About Us</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
+                cupiditate culpa deserunt? Ve lit soluta reiciendis dignissimos
+                reprehenderit? Corporis consectetur aspernatur reiciendis
+                tenetur deserunt, et temporibus, commodi totam illo aut sint!
+              </p>
+              <div class="social">
+                <a class="social__icon instagram" href="#">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a class="social__icon facebook" href="#">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a class="social__icon git" href="https://github.com/l-Spook-l" target="_blank">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a class="social__icon twitter" href="#">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a class="social__icon linkedin" href="#">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </div>
+            </li>
+            <li class="footer-quick-links">
+              <h3>QuickLinks</h3>
+              <a href="">About</a>
+              <a href="">FAQ</a>
+              <a href="">Privacy Policy</a>
+              <a href="">Terms & Consitions</a>
+              <a href="">Contact</a>
+            </li>
+            <li class="footer-contact-info">
+              <h3>Contact Info</h3>
+              <a href="https://www.google.com/maps/place/%D0%9B%D0%BE%D1%81-%D0%90%D0%BD%D0%B4%D0%B6%D0%B5%D0%BB%D0%B5%D1%81,+%D0%9A%D0%B0%D0%BB%D0%B8%D1%84%D0%BE%D1%80%D0%BD%D0%B8%D1%8F,+%D0%A1%D0%A8%D0%90/@34.0207305,-118.6919155,10z/data=!3m1!4b1!4m6!3m5!1s0x80c2c75ddc27da13:0xe22fdf6f254608f4!8m2!3d34.0522342!4d-118.2436849!16s%2Fm%2F030qb3t"
+                ><span>340 Main Street Los Angeles,<br />CA 90291 United States</span>
+              </a>
+              <a>+1 234 567 8900</a>
+              <a>google@gmail.com</a>
+            </li>
+          </ul>
+        </nav>
+        <p class="footer-copyright">&copy; Golf Home 2023 All rights reserved</p>
+      </footer>
+    </div>
+  </body>
+</html>
