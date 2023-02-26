@@ -1,22 +1,22 @@
 {% extends 'store/base.html' %}
 
-
 {% block title %}Главная{% endblock %}
-
 
 {% block content %}
 <div class="product">
   <img src="{{ product.photo.url }}" alt="">
 
-  <div>
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.price }} $</p>
-    <a href="">Добавить в корзину</a>
 
-  {% if user.is_authenticated %}
+  <div class="product-info">
+    <h1>{{ product.name }}</h1>
+    <p class="product-price">{{ product.price }} $</p>
+    <a href="">Add to cart</a>
+  </div>
+
+  {% if user.is_superuser == True %}
   <a href="{% url 'update_product' product.slug %}">обновить</a>
   <a href="{% url 'delete_product' product.slug %}">удалить</a>
   {% endif %}
-</div>
+
 </div>
 {% endblock %}

@@ -13,12 +13,22 @@ class AddProductForm(forms.ModelForm):
         self.fields['type'].empty_label = 'Категория не выбрана'
         self.fields['brand'].empty_label = 'Категория не выбрана'
 
+    # name = forms.CharField(label='Name',
+    #                        widget=forms.TextInput(attrs={'class': 'form-input'}))
+    # price = forms.IntegerField(label='Price',
+    #                         widget=forms.IntegerField(attrs={'class': 'form-input'}))
+
+    # photo = forms.ImageField(label='Photo',
+    #                          widget=forms.ImageField(attrs={'class': 'form-input'}))
+
     class Meta:
         # связь формы с нужной моделью
         model = Product
         # какие поля отобразить в форме, кроме автозаполнения (__all__)
         # fields = '__all__'
-        fields = ['name', 'price', 'rating', 'photo', 'type', 'brand']
+        fields = ['name', 'price', 'photo', 'type', 'brand']
+
+
 
     # свой валидатор (проверка), должен начинаться с (clean_), даль для какого поля (name)
     def clean_name(self):

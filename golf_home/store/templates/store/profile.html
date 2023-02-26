@@ -8,7 +8,12 @@
 <article class="profile">
   <div class="profile-header">
     <h1>Личный кабинет</h1>
-    <a href="{% url 'logout'%}">выйти из профиля</a>
+    <div class="profile-btn">
+      {% if user.is_superuser == True %}
+      <a href="{% url 'add_product' %}">Добавить товар</a>
+      {% endif %}
+      <a href="{% url 'logout'%}">Выйти из профиля</a>
+    </div>
   </div>
   <div class="profile-container">
     <section class="user-info">
@@ -31,10 +36,6 @@
       <hr>
     </section>
   </div>
-
-  {% if user.is_superuser == True %}
-  <a href="{% url 'add_product' %}">Добавить товар</a>
-  {% endif %}
 </article>
 
 {% endblock %}
