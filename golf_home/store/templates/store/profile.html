@@ -1,31 +1,40 @@
-{% extends 'store/base.html' %} 
-
+{% extends 'store/base.html' %}
 {% block title %}
 Авторизация
 {% endblock %}
-{% block content %}
-  
-<!-- <p>
-  {{ user }}
-</p>
-<hr> -->
-<p>
-  {{ user.id }}
-</p>
-<p>
-  {{ user.email }}
-</p>
-<p>
-  {{ user.username }}
-</p>
-<p>
-  {{ user.first_name }}
-</p>
-<p>
-  {{ user.last_name }}
-</p>
 
-  <a href="{% url 'logout'%}">выйти из профиля</a>
+{% block content %}
+
+<article class="profile">
+  <div class="profile-header">
+    <h1>Личный кабинет</h1>
+    <a href="{% url 'logout'%}">выйти из профиля</a>
+  </div>
+  <div class="profile-container">
+    <section class="user-info">
+      <p>Логин</p>
+      <p>{{ user.username }}</p>
+      <hr>
+      <p>Имя</p>
+      <p>{{ user.first_name }}</p>
+      <hr>
+
+      <p>Фамилия</p>
+      <p>{{ user.last_name }}</p>
+      <hr>
+
+      <p>Электронная почта</p>
+      <p>{{ user.email }}</p>
+    </section>
+    <section class="user-orders">
+      <h2>Ваши заказы</h2>
+      <hr>
+    </section>
+  </div>
+
+  {% if user.is_superuser == True %}
   <a href="{% url 'add_product' %}">Добавить товар</a>
+  {% endif %}
+</article>
 
 {% endblock %}

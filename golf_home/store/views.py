@@ -93,7 +93,6 @@ class UpdateProduct(UpdateView):
     model = Product
     template_name = 'store/addproduct.html'
     slug_url_kwarg = 'product_slug'
-
     fields = ['name', 'price', 'type', 'brand']
 
 

@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import Product, TypeProduct, BrandProduct, InfoProduct
 
+"""
+is_superuser - просмотр инфо в админ-панели
+is_staff - доступ к админ-панели"""
+
 
 # название как правило соападает с нужной моделью
 class ProductAdmin(admin.ModelAdmin):

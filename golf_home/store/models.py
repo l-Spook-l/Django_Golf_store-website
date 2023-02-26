@@ -1,18 +1,17 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from uuid import uuid4
-import pathlib
+# from uuid import uuid4
+# import pathlib
 
 # from django.contrib.auth.models import User
 
 
 # уникально имя фото
-def photo_directory_and_name(instance, filename):
-    filepath = pathlib.Path(filename)
-    new_filename = uuid4()
-    # new_filename = slug
-    return f'photos/product/{new_filename}{filepath.suffix}'
+# def photo_directory_and_name(instance, filename):
+#     filepath = pathlib.Path(filename)
+#     new_filename = uuid4()
+#     return f'photos/product/{new_filename}{filepath.suffix}'
 
 
 # удалять картинки из папки при удалении продукт
@@ -23,8 +22,8 @@ class Product(models.Model):
     price = models.IntegerField()
     rating = models.IntegerField()
     """для картинки нужно доп. модуль (pip install Pillow"), урок 4, 14"""
-    # photo = models.ImageField(upload_to=f'photos/product/{slug.description}')
-    photo = models.ImageField(upload_to=photo_directory_and_name)
+    photo = models.ImageField(upload_to='photos/product/')
+    # photo = models.ImageField(upload_to=photo_directory_and_name)  # уникально имя фото
     """Ключ указываем где много, 
         on_delete=models.PROTECT - запрещаем удалять тип если есть хотя бы 1 продукт этого типа """
     type = models.ForeignKey('TypeProduct', on_delete=models.PROTECT)  # 1 тип (one to many)
@@ -75,17 +74,11 @@ class BrandProduct(models.Model):
     """Производитель продукта, первичная модель"""
     name = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
-    photo = models.ImageField(upload_to="photo_directory_and_name")
+    photo = models.ImageField(upload_to='photos/brand/')
     description = models.TextField(max_length=5000)
 
     def __str__(self):
         return self.name
-
-    def photo_directory_and_name(self, instance, filename):
-        filepath = pathlib.Path(filename)
-        # new_filename = uuid4()
-        new_filename = self.slug
-        return f'photos/product/{new_filename}{filepath.suffix}'
 
     # для настройки в админ-панели
     class Meta:
