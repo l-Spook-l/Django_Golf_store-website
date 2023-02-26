@@ -28,7 +28,13 @@ class AddProductForm(forms.ModelForm):
         # fields = '__all__'
         fields = ['name', 'price', 'photo', 'type', 'brand']
 
-
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-input'}),
+            'price': forms.NumberInput(attrs={'class': 'form-input'}),
+            'photo': forms.FileInput(attrs={'class': 'form-input'}),
+            'type': forms.Select(attrs={'class': 'form-input'}),
+            'brand': forms.Select(attrs={'class': 'form-input'}),
+        }
 
     # свой валидатор (проверка), должен начинаться с (clean_), даль для какого поля (name)
     def clean_name(self):

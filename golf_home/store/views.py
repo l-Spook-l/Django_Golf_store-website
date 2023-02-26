@@ -93,16 +93,20 @@ class UpdateProduct(UpdateView):
     model = Product
     template_name = 'store/addproduct.html'
     slug_url_kwarg = 'product_slug'
-    fields = ['name', 'price', 'type', 'brand']
+    # можно только что-то одно, или form_class или fields
+    form_class = AddProductForm
+    # какие поля можно  обновить
+    # fields = ['name', 'price', 'rating', 'photo', 'type', 'brand']
 
 
 # =======================================================================================
-class DeleteProduct(ListView, DeleteView):
+class DeleteProduct(DeleteView):
     model = Product
     template_name = 'store/deleteProduct.html'
     success_url = reverse_lazy('store_home')
     slug_url_kwarg = 'product_slug'
 
+    # ListView
     # remove(f'static/images/{product_delete.name_image}')
     # def get_queryset(self):
     #     print(Product.objects.filter(slug=self.kwargs['product_slug']))
@@ -112,10 +116,7 @@ class DeleteProduct(ListView, DeleteView):
 # =======================================================================================
 class ProfileUser(LoginRequiredMixin, ListView):
     model = Product
-    # model = User
     template_name = 'store/profile.html'
-    # context_object_name = 'user'
-    # pk_url_kwarg = 'pk'
 
 
 # =======================================================================================
