@@ -36,7 +36,7 @@
         {% if not user.is_authenticated %}
         <a class="user-enter-profile" href="{% url 'login' %}">Sing in</a>
         {% else %}
-        <a class="user-enter-profile" href="{% url 'profile' %}">Профиль</a>
+        <a class="user-enter-profile" href="{% url 'profile' %}">{{ user.username }}</a>
         <!-- <a class="user-enter-profile" href="{% url 'logout' %}">Выйти</a> -->
         {% endif %}
       </header>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, TypeProduct, BrandProduct, InfoProduct
+from .models import Product, TypeProduct, BrandProduct
 
 """
 is_superuser - просмотр инфо в админ-панели

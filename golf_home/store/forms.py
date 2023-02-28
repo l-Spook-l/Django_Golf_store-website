@@ -13,14 +13,6 @@ class AddProductForm(forms.ModelForm):
         self.fields['type'].empty_label = 'Категория не выбрана'
         self.fields['brand'].empty_label = 'Категория не выбрана'
 
-    # name = forms.CharField(label='Name',
-    #                        widget=forms.TextInput(attrs={'class': 'form-input'}))
-    # price = forms.IntegerField(label='Price',
-    #                         widget=forms.IntegerField(attrs={'class': 'form-input'}))
-
-    # photo = forms.ImageField(label='Photo',
-    #                          widget=forms.ImageField(attrs={'class': 'form-input'}))
-
     class Meta:
         # связь формы с нужной моделью
         model = Product

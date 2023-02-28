@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+
+
 # from uuid import uuid4
 # import pathlib
 
@@ -20,7 +22,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     price = models.IntegerField()
-    rating = models.IntegerField()
+    rating = models.IntegerField(default=0)
     """для картинки нужно доп. модуль (pip install Pillow"), урок 4, 14"""
     photo = models.ImageField(upload_to='photos/product/')
     # photo = models.ImageField(upload_to=photo_directory_and_name)  # уникально имя фото
@@ -43,6 +45,12 @@ class Product(models.Model):
         value = self.name
         self.slug = slugify(value, allow_unicode=True)
         super().save(*args, **kwargs)
+
+    # при удалении продукта, удалять из папки фото
+    def delete(self, *args, **kwargs):
+        # Удаляем файл, связанный с этой записью
+        self.photo.delete()
+        super().delete(*args, **kwargs)
 
     # для настройки в админ-панели
     class Meta:
@@ -91,13 +99,14 @@ class BrandProduct(models.Model):
         return reverse('brand', kwargs={'brand_slug': self.slug})
 
 
-class InfoProduct(models.Model):
-    product = models.ForeignKey('Product', on_delete=models.PROTECT)
-    title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.title
+"""For next versions"""
+# class InfoProduct(models.Model):
+#     product = models.ForeignKey('Product', on_delete=models.PROTECT)
+#     title = models.CharField(max_length=255)
+#     description = models.CharField(max_length=255)
+#
+#     def __str__(self):
+#         return self.title
 
 # class Basket(models.Model):
 #     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from os import remove
 
@@ -10,9 +10,6 @@ from .models import *
 from .forms import AddProductForm
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
-
-# from .utils import DataMixin
 
 
 class StoreHome(ListView):
@@ -81,7 +78,7 @@ class ProductShow(DetailView):
 
 
 # =======================================================================================
-class AddProduct(CreateView):
+class AddProduct(LoginRequiredMixin, CreateView):
     form_class = AddProductForm
     template_name = 'store/addproduct.html'
     query_pk_and_slug = True
@@ -89,7 +86,7 @@ class AddProduct(CreateView):
 
 
 # =======================================================================================
-class UpdateProduct(UpdateView):
+class UpdateProduct(LoginRequiredMixin, UpdateView):
     model = Product
     template_name = 'store/addproduct.html'
     slug_url_kwarg = 'product_slug'
@@ -100,11 +97,14 @@ class UpdateProduct(UpdateView):
 
 
 # =======================================================================================
-class DeleteProduct(DeleteView):
+class DeleteProduct(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'store/deleteProduct.html'
     success_url = reverse_lazy('store_home')
     slug_url_kwarg = 'product_slug'
+    # print('=====================================================')
+    # print(Product.objects.get(id=13))
+    # print('=====================================================')
 
     # ListView
     # remove(f'static/images/{product_delete.name_image}')
@@ -121,8 +121,7 @@ class ProfileUser(LoginRequiredMixin, ListView):
 
 # =======================================================================================
 # обработчик страницы 404
-def pageNotFound(request, exception):
-    return HttpResponseNotFound('<h1>HZ</h1>')
+def page_not_found(request, exception):
+    return render(request, 'store/page_404.html', status=404)
 
-# def page_not_found(request, exception):
-#     return render(request, '404.html', status=404)
+# =======================================================================================

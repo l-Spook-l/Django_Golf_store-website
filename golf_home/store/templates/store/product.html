@@ -6,17 +6,17 @@
 <div class="product">
   <img src="{{ product.photo.url }}" alt="">
 
-
   <div class="product-info">
     <h1>{{ product.name }}</h1>
     <p class="product-price">{{ product.price }} $</p>
-    <a href="">Add to cart</a>
+    <a class="product-btn" href="">Add to cart</a>
   </div>
 
+  <div class="product-change-btn">
   {% if user.is_superuser == True %}
-  <a href="{% url 'update_product' product.slug %}">обновить</a>
-  <a href="{% url 'delete_product' product.slug %}">удалить</a>
+  <a class="product-btn" href="{% url 'update_product' product.slug %}">Update</a>
+  <a class="product-btn" href="{% url 'delete_product' product.slug %}">Delete</a>
   {% endif %}
-
+</div>
 </div>
 {% endblock %}
