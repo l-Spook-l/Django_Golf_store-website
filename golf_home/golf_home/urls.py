@@ -17,4 +17,3 @@ if settings.DEBUG:
 
 # Обработка страницы - 404
 handler404 = page_not_found
-# handler404 = 'store.views.pageNotFound'

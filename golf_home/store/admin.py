@@ -55,25 +55,6 @@ class BrandProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-#
-#
-# class InfoProductAdmin(admin.ModelAdmin):
-#     # список полей которые мы хотим видеть в админ-панеле
-#     # list_display = ('id', 'name', 'time_create', 'photo', 'is_published')
-#     list_display = ('id', 'title', 'slug')
-#     # клик по этим поляем позволяет перейти на нужную статью
-#     list_display_links = ('id', 'title')
-#     # делаем поле редактируемым
-#     # list_editable = ('is_published',)
-#     # поля по которым можно будет делать фильтрацию (появляется фильтр справа)
-#     # list_filter = ('is_published', 'time_create')
-#     # по каким полям делать поиск
-#     search_fields = ('name',)
-#     # автозаполнение слага на основе имени, урок-12
-#     prepopulated_fields = {'slug': ('title',)}
-
-
 admin.site.register(Product, ProductAdmin)
 admin.site.register(TypeProduct, TypeProductAdmin)
 admin.site.register(BrandProduct, BrandProductAdmin)
-# admin.site.register(InfoProduct, InfoProductAdmin)

@@ -1,10 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator
-from django.http import HttpResponseNotFound, Http404
-from django.shortcuts import render, get_object_or_404, redirect
+# from django.contrib.auth.models import User
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from os import remove
 
 from .models import *
 from .forms import AddProductForm
@@ -27,7 +24,7 @@ class StoreHome(ListView):
         return context
 
 
-# =======================================================================================
+# {% url 'type' type.slug %}
 class TypeShow(ListView):
     model = Product
     template_name = 'store/type.html'
@@ -39,7 +36,6 @@ class TypeShow(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         # берем уже существующий контекст (это словарь), на основе класса - ListView
         context = super().get_context_data(**kwargs)
-        # w = Product.objects.filter(type__slug='type_slug')
         context['type'] = self.kwargs['type_slug']
         return context
 
@@ -47,8 +43,7 @@ class TypeShow(ListView):
         return Product.objects.filter(type__slug=self.kwargs['type_slug'])
 
 
-# {% url 'type' type.slug %}
-# =======================================================================================
+# {% url 'brand' brand.slug %}
 class BrandShow(ListView):
     model = Product
     template_name = 'store/brand.html'
@@ -67,17 +62,14 @@ class BrandShow(ListView):
         return Product.objects.filter(brand__slug=self.kwargs['brand_slug'])
 
 
-# {% url 'brand' brand.slug %}
-# =======================================================================================
 class ProductShow(DetailView):
     model = Product
     template_name = 'store/product.html'
     context_object_name = 'product'
-    # по-умолчанию этот метода будет искасть просто по - slug (в URL - <slug:slug>), название можно любое
+    # по-умолчанию этот метод будет искать просто по - slug (в URL - <slug:slug>), название можно любое
     slug_url_kwarg = 'product_slug'
 
 
-# =======================================================================================
 class AddProduct(LoginRequiredMixin, CreateView):
     form_class = AddProductForm
     template_name = 'store/addproduct.html'
@@ -85,43 +77,28 @@ class AddProduct(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('store_home')
 
 
-# =======================================================================================
 class UpdateProduct(LoginRequiredMixin, UpdateView):
     model = Product
     template_name = 'store/addproduct.html'
     slug_url_kwarg = 'product_slug'
     # можно только что-то одно, или form_class или fields
     form_class = AddProductForm
-    # какие поля можно  обновить
+    # какие поля можно обновить
     # fields = ['name', 'price', 'rating', 'photo', 'type', 'brand']
 
 
-# =======================================================================================
 class DeleteProduct(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'store/deleteProduct.html'
     success_url = reverse_lazy('store_home')
     slug_url_kwarg = 'product_slug'
-    # print('=====================================================')
-    # print(Product.objects.get(id=13))
-    # print('=====================================================')
-
-    # ListView
-    # remove(f'static/images/{product_delete.name_image}')
-    # def get_queryset(self):
-    #     print(Product.objects.filter(slug=self.kwargs['product_slug']))
-    # return Product.objects.filter(slug=self.kwargs['brand_slug'])
 
 
-# =======================================================================================
 class ProfileUser(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'store/profile.html'
 
 
-# =======================================================================================
 # обработчик страницы 404
 def page_not_found(request, exception):
     return render(request, 'store/page_404.html', status=404)
-
-# =======================================================================================

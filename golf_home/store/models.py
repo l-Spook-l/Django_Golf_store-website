@@ -2,10 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
-
 # from uuid import uuid4
 # import pathlib
-
 # from django.contrib.auth.models import User
 
 
@@ -23,7 +21,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     price = models.IntegerField()
     rating = models.IntegerField(default=0)
-    """для картинки нужно доп. модуль (pip install Pillow"), урок 4, 14"""
+    """для картинки нужно доп. модуль (pip install Pillow")"""
     photo = models.ImageField(upload_to='photos/product/')
     # photo = models.ImageField(upload_to=photo_directory_and_name)  # уникально имя фото
     """Ключ указываем где много, 

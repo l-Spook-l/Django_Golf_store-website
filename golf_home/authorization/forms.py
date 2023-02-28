@@ -17,10 +17,9 @@ class RegisterUserForm(UserCreationForm):
     password2 = forms.CharField(label='Password Confirmation',
                                 widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
-    # widget=forms.TextInput(attrs={'class': 'form-input'})
     class Meta:
         model = User
-        # влияет еще на порядок в форме
+        # на порядок в форме такой же
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
 

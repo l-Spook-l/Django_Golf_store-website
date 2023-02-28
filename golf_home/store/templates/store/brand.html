@@ -5,7 +5,7 @@
 {% block content %}
 
 <nav>
-  <ul>
+  <ul class="breadcrumbs">
     <li><a href="{% url 'store_home' %}">home</a></li>
     <li>{{ brand }}</li>
   </ul>
@@ -22,7 +22,7 @@
         <span>Рейтинг: {{ el.rating }}</span>
       </div>
       <div class="products-price">
-        <span>{ el.price }} $</span>
+        <span>{{ el.price }} $</span>
       </div>
     </section>
   {% endfor %}

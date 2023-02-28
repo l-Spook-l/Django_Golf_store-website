@@ -34,13 +34,6 @@ class LoginUser(LoginView):
         return reverse_lazy('store_home')
 
 
-# class UpdateUser(UpdateView):
-#     model = User
-#     template_name = 'authorization/register.html'
-#     slug_url_kwarg = 'product_slug'
-#     fields = ['username', 'first_name', 'last_name', 'email']
-
-
 def logout_user(request):
     logout(request)
     return redirect('login')
