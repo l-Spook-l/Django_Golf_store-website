@@ -36,13 +36,12 @@
         <a class="user-enter-profile" href="{% url 'login' %}">Sing in</a>
         {% else %}
         <a class="user-enter-profile" href="{% url 'profile' %}">{{ user.username }}</a>
-        <!-- <a class="user-enter-profile" href="{% url 'logout' %}">Выйти</a> -->
         {% endif %}
       </header>
       <main>
         {% block content %} {% endblock %}
 
-        <!-- =============== ПАГИНАЦИЯ  (18 урок) ============ -->
+        <!-- =============== ПАГИНАЦИЯ ============ -->
         {% if page_obj.has_other_pages %}
         <!-- если только одна страница, мы не выводим ее номер -->
         <nav class="list-pages">
@@ -59,7 +58,7 @@
             <li class="page-num page-num-selected">{{ p }}</li>
 
             <!-- если много стр. чтобы отображались только 3 напр.( 4 5 6   )  -->
-            {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
+            {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
             <li>
               <a class="page-num" href="?page={{ p }}">{{ p }}</a>
             </li>

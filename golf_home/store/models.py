@@ -27,14 +27,14 @@ class Product(models.Model):
     """Ключ указываем где много, 
         on_delete=models.PROTECT - запрещаем удалять тип если есть хотя бы 1 продукт этого типа """
     type = models.ForeignKey('TypeProduct', on_delete=models.PROTECT)  # 1 тип (one to many)
-    brand = models.ForeignKey('BrandProduct', on_delete=models.PROTECT)  # 1 брэнд (one to many)
+    brand = models.ForeignKey('BrandProduct', on_delete=models.PROTECT, blank=True)  # 1 брэнд (one to many)
     time_create = models.DateTimeField(auto_now_add=True)  # принимаем текущее время и не меняется
 
     def __str__(self):
         return self.name
 
     # фун-я для получения нужного - url, так же при использовании классов, помогает перенаправить на нужную стр.
-    # урок - 8, помогает в админ-панели сгенерировать кнопку (смотреть на сайте)
+    # помогает в админ-панели сгенерировать кнопку (смотреть на сайте)
     def get_absolute_url(self):
         return reverse('product', kwargs={'product_slug': self.slug})
 
@@ -108,15 +108,14 @@ class BrandProduct(models.Model):
 
 # class Basket(models.Model):
 #     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#
-#
-# # продукт в корзине
+
+
 # class BasketProduct(models.Model):
 #     basket = models.ForeignKey('Basket', on_delete=models.CASCADE)
 #     product = models.OneToOneField('Product', on_delete=models.CASCADE)
 
 
-# в другую модель class Rating(models.Model):
+# class Rating(models.Model):
 #     user = models.IntegerField()
 #     product = models.IntegerField()
 #     grade = models.IntegerField()

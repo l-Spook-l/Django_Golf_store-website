@@ -266,7 +266,8 @@ footer nav {
     margin: 10px;
     padding: 10px;
     border-radius: 8px;
-    color: black;
+    color: black;   
+    text-transform: uppercase;
     background-color: rgb(236, 242, 242);
 }
 
@@ -415,7 +416,7 @@ footer nav {
 .product-change-btn  {
     margin: 20px;
 }
-/* ------------- Login / Register ------------- */
+/* ------------- Delete product ------------- */
 .delete-product {
     background-color: burlywood;
     width: 590px;

@@ -18,9 +18,7 @@ class StoreHome(ListView):
         # берем уже существующий контекст (это словарь), на основе класса - ListView
         context = super().get_context_data(**kwargs)
         brands_products = BrandProduct.objects.all()
-        # types_products = TypeProduct.objects.all()
         context['brands_products'] = brands_products
-        # context['types_products'] = types_products
         return context
 
 
@@ -31,12 +29,14 @@ class TypeShow(ListView):
     context_object_name = 'type_product'
     # если в списке нету записей, будет вызвана - 404
     allow_empty = False
-    paginate_by = 12  # количество элементов на 1й стр (18 урок)
+    paginate_by = 12  # количество элементов на 1й стр
 
     def get_context_data(self, *, object_list=None, **kwargs):
         # берем уже существующий контекст (это словарь), на основе класса - ListView
         context = super().get_context_data(**kwargs)
-        context['type'] = self.kwargs['type_slug']
+        context['type'] = \
+            Product.objects.filter(type__slug=self.kwargs['type_slug']).values('type__name')[0]['type__name']
+
         return context
 
     def get_queryset(self):
@@ -50,12 +50,15 @@ class BrandShow(ListView):
     context_object_name = 'brand_product'
     # если в списке нету записей, будет вызвана - 404
     allow_empty = False
-    paginate_by = 12  # количество элементов на 1й стр (18 урок)
+    paginate_by = 12  # количество элементов на 1й стр
 
     def get_context_data(self, *, object_list=None, **kwargs):
         # берем уже существующий контекст (это словарь), на основе класса - ListView
         context = super().get_context_data(**kwargs)
-        context['brand'] = self.kwargs['brand_slug']
+        context['brand'] = \
+            Product.objects.filter(brand__slug=self.kwargs['brand_slug']).values('brand__name')[0]['brand__name']
+        # при таком запросе получаем напр(Adidas - как бренд, и можем получить тип каждого товара
+        # print(Product.objects.filter(brand__slug=self.kwargs['brand_slug']).values('type__name'))
         return context
 
     def get_queryset(self):
