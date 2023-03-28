@@ -19,7 +19,7 @@ class ProductAdmin(admin.ModelAdmin):
     # list_filter = ('is_published', 'time_create')
     # по каким полям делать поиск
     search_fields = ('name',)
-    # автозаполнение слага на основе имени, урок-12
+    # автозаполнение слага на основе имени
     prepopulated_fields = {'slug': ('name',)}
 
 
@@ -35,7 +35,7 @@ class TypeProductAdmin(admin.ModelAdmin):
     # list_filter = ('is_published', 'time_create')
     # по каким полям делать поиск
     search_fields = ('name',)
-    # автозаполнение слага на основе имени, урок-12
+    # автозаполнение слага на основе имени
     prepopulated_fields = {'slug': ('name',)}
 
 
@@ -51,7 +51,7 @@ class BrandProductAdmin(admin.ModelAdmin):
     # list_filter = ('is_published', 'time_create')
     # по каким полям делать поиск
     search_fields = ('name',)
-    # автозаполнение слага на основе имени, урок-12
+    # автозаполнение слага на основе имени
     prepopulated_fields = {'slug': ('name',)}
 
 

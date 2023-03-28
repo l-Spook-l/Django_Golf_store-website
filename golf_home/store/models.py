@@ -28,7 +28,7 @@ class Product(models.Model):
         on_delete=models.PROTECT - запрещаем удалять тип если есть хотя бы 1 продукт этого типа """
     type = models.ForeignKey('TypeProduct', on_delete=models.PROTECT)  # 1 тип (one to many)
     brand = models.ForeignKey('BrandProduct', on_delete=models.PROTECT, blank=True)  # 1 брэнд (one to many)
-    time_create = models.DateTimeField(auto_now_add=True)  # принимаем текущее время и не меняется
+    time_create = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

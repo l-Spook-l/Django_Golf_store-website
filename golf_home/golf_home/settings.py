@@ -135,10 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_ROOT = path.join(BASE_DIR, 'static')  # для подключеня своего CSS
 STATICFILES_DIRS = []  # если есть нестандартные пути
 
-# для фото урок - 4
+# для фото
 MEDIA_ROOT = path.join(BASE_DIR, 'media')  # ссылается на текущюю папку раб. проекта
 MEDIA_URL = '/media/'
-
 
 # если пользователь верно ввел данные, перенаправляем его на нужную стр.
 # LOGIN_REDIRECT_URL = '/'
